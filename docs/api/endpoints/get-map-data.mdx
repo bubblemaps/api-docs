@@ -19,7 +19,7 @@ You just have to provide:
 
 ### Query Duration
 
-Query duration ranges from a few `ms` for cache hits, up to a minute for outliers. Most queries should not take more than `10s` though.
+Query duration ranges from a few `ms` for cache hits, up to a minute for outliers. Most queries should not take more than `15s` though.
 
 <Note>Using magic nodes will increase the duration of the query.</Note>
 
@@ -33,6 +33,12 @@ See the expected schema at the end of this page, but here's some additional cont
 - The `is_supernode` boolean means that the node has a high volume of transfers (threshold may vary). Relationships between two supernodes are ignored (relationships between a supernode and a non-supernode are included though).
 - In the `relationships` list, transfers are grouped based on the `(from_address, to_address, token_ref)` key. Meaning that if `A` sends some `BMT` to `B` multiple times, these transfers will be grouped as a unique relationship object.
 - In some instances, the `decentralization_score` can be null even if you asked for it. (This means the score is not applicable on that map)
+
+<Note>
+  Returning nodes and relationships on dense maps might crash the API playground
+  web interface. In these cases, don't hesitate to try out calls directly via
+  curl or your favorite language.
+</Note>
 
 <CardGroup cols={2}>
   <Card
