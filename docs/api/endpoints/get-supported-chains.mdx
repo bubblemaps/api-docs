@@ -1,0 +1,16 @@
+---
+title: "Get Supported Chains"
+openapi: "GET /chains"
+---
+
+Get the list of chains that we currently support.
+
+Mind the `is_public` attribute: a non-public chain won't be available on the main app yet, and you won't be able to query maps of tokens from this chain either.
+
+A non-public chain will usually get public in a matter of weeks, the non-public state is purely transitory.
+
+<Note>
+  Bubblemaps is omni-chain, which means that if you query an ethereum map for
+  example, you might get relationships for transfers from other EVM chains. On
+  the API level, this includes transfers from chains that are not public yet!
+</Note>

@@ -1,0 +1,48 @@
+---
+title: "Get Map Data"
+openapi: "GET /maps/{chain}/{token_address}"
+---
+
+This is where you get all the interesting map data.
+
+You just have to provide:
+
+- The token chain and address, through path parameters. If you provide a non-public chain, you'll get a `400` error (see [Get Supported Chains](/docs/api/endpoints/get-supported-chains)).
+- Whether you want to use magic nodes or not, through the `use_magic_nodes` query parameter. If you do, magic nodes will be fetched and considered in the relationships, score, and clusters computation.
+- What data you want to be returned in your response, through the `return_*` query parameters described below. To ensure lightweight responses, only return the data you actually use!
+
+<Warning>
+  All tokens are supported by default, including NFT collections, but beware of
+  errors: a `404` will be returned if no holders are found, and a `400` might be
+  returned for some rare unsupported tokens.
+</Warning>
+
+### Query Duration
+
+Query duration ranges from a few `ms` for cache hits, up to a minute for outliers. Most queries should not take more than `10s` though.
+
+<Note>Using magic nodes will increase the duration of the query.</Note>
+
+### Response Format
+
+See the expected schema at the end of this page, but here's some additional context:
+
+- The base nodes list is the top 80 holders of the token. This is aligned with the iFrame integrations. This number might change in the future.
+- All share values are in `[0, 1]` format, meaning `42%` will be returned as `0.42`.
+- In the nodes lists, you'll find a `is_shown_on_map` boolean. It is based on the default visibility state on our main app, meaning that CEXs, DEXs, Contracts, and hypernodes (more than 200k transfers) are hidden. These nodes are not considered in the relationships, score, and clusters computation.
+- The `is_supernode` boolean means that the node has a high volume of transfers (threshold may vary). Relationships between two supernodes are ignored (relationships between a supernode and a non-supernode are included though).
+- In the `relationships` list, transfers are grouped based on the `(from_address, to_address, token_ref)` key. Meaning that if `A` sends some `BMT` to `B` multiple times, these transfers will be grouped as a unique relationship object.
+- In some instances, the `decentralization_score` can be null even if you asked for it. (This means the score is not applicable on that map)
+
+<CardGroup cols={2}>
+  <Card
+    title="Magic Nodes"
+    icon="wand-magic-sparkles"
+    href="https://x.com/bubblemaps/status/1858578503509086366"
+  ></Card>
+  <Card
+    title="Decentralization Score"
+    icon="hundred-points"
+    href="https://bubblemaps.notion.site/Bubblemaps-Decentralization-Factor-ba767100c9534945ae390fd2467e4add"
+  ></Card>
+</CardGroup>

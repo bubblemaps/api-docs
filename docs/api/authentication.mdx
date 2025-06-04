@@ -1,0 +1,32 @@
+---
+title: "Authentication"
+description: "Get Access to the Bubblemaps API"
+---
+
+## Get Your Key
+
+To access this API, you'll need an API key. [Reach out](mailto:api@bubblemaps.io) to ask for one.
+
+<Note>
+  This API is still in preview, we give API keys to hand-selected partners.
+</Note>
+
+## Rate Limiting
+
+For now, we apply a daily query-seconds limit, negociated on a case by case basis.
+
+This means that when you make a query, we time how long it takes to compute, and store that information. If you go over your allowed query-seconds for the day, you'll start getting `429` errors.
+
+<Check>
+  Cache is shared with other API consumers, **including the app and iFrame
+  integrations**. Which means that if you query highly demanded maps, you'll
+  most likely hit cache, minimizing query-seconds usage.
+</Check>
+
+<Info>The daily limit resets at midnight UTC</Info>
+
+## Using Your Key
+
+Pass your key in the `X-ApiKey` header of your requests.
+
+Try this out in the [interactive endpoints documentation](/docs/api/endpoints/get-supported-chains).
