@@ -1,0 +1,57 @@
+---
+title: "Quickstart"
+description: "Embed our iFrames in one line of code"
+mode: "wide"
+---
+
+## iFrame Tag
+
+You can iFrame a bubble map by simply setting the URL of the map in the `src` attribute of an `iframe` html tag, like this:
+
+```html
+<iframe
+  src="https://iframe.bubblemaps.io/map?address=FQgtfugBdpFN7PZ6NdPrZpVLDBrPGxXesi4gVu3vErhY&chain=solana&partnerId=demo"
+></iframe>
+```
+
+Note the simple structure of the URL:
+
+```text
+https://iframe.bubblemaps.io/map?chain=[chain_id]&address=[token_address]&partnerId=[partner_id]
+```
+
+<Note>
+  If you don't have a dedicated partner id yet, you can use `demo` to test
+  things out. More info in the [pricing section](/docs/iframe/pricing).
+</Note>
+
+## Available Chains
+
+Currently available chains are `solana`, `eth`, `bsc`, `tron`, `base`, `apechain`, `sonic`, and `ton`.
+
+## Styling
+
+Of course, you still have to style your iframe in terms of size and border to place it correctly in your layout. Keep in mind that browsers usually apply a default border on iframes, which you'll have to remove. We also recommend using at least a 600px height.
+
+```css
+iframe {
+  width: 100%;
+  height: 700px;
+  border: none;
+}
+```
+
+Exemple with inline styling:
+
+```html
+<iframe
+  src="https://iframe.bubblemaps.io/map?address=FQgtfugBdpFN7PZ6NdPrZpVLDBrPGxXesi4gVu3vErhY&chain=solana&partnerId=demo"
+  style="width:100%;height:700px;border:none;"
+></iframe>
+```
+
+<Note>
+  **Custom color themes** are also available on-demand, no code change needed
+  (the color theme is triggered by the partner id).
+
+</Note>

@@ -15,25 +15,33 @@
           "anchor": "App",
           "href": "https://v2.bubblemaps.io",
           "icon": "chart-network"
-        },
-        {
-          "anchor": "iFrames",
-          "href": "https://v2.bubblemaps.io/iframe.html",
-          "icon": "frame"
         }
       ]
     },
     "groups": [
       {
         "group": "Get Started",
-        "pages": ["docs/introduction", "docs/api/authentication"]
+        "pages": ["docs/introduction"]
       },
       {
-        "group": "Endpoints",
+        "group": "iFrame Integration",
         "pages": [
+          "docs/iframe/introduction",
+          "docs/iframe/demo",
+          "docs/iframe/quickstart",
+          "docs/iframe/pricing"
+        ],
+        "icon": "frame"
+      },
+      {
+        "group": "Data API",
+        "pages": [
+          "docs/api/introduction",
+          "docs/api/authentication",
           "docs/api/endpoints/get-supported-chains",
           "docs/api/endpoints/get-map-data"
-        ]
+        ],
+        "icon": "database"
       }
     ]
   },
