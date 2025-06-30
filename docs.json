@@ -21,25 +21,25 @@
     "groups": [
       {
         "group": "Get Started",
-        "pages": ["docs/introduction"]
+        "pages": ["introduction"]
       },
       {
         "group": "iFrame Integration",
         "pages": [
-          "docs/iframe/introduction",
-          "docs/iframe/demo",
-          "docs/iframe/quickstart",
-          "docs/iframe/pricing"
+          "iframe/introduction",
+          "iframe/demo",
+          "iframe/quickstart",
+          "iframe/pricing"
         ],
         "icon": "frame"
       },
       {
         "group": "Data API",
         "pages": [
-          "docs/api/introduction",
-          "docs/api/authentication",
-          "docs/api/endpoints/get-supported-chains",
-          "docs/api/endpoints/get-map-data"
+          "data/api/introduction",
+          "data/api/authentication",
+          "data/api/endpoints/get-supported-chains",
+          "data/api/endpoints/get-map-data"
         ],
         "icon": "database"
       }

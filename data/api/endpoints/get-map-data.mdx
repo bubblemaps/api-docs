@@ -7,7 +7,7 @@ This is where you get all the interesting map data.
 
 You just have to provide:
 
-- The token chain and address, through path parameters. If you provide a non-public chain, you'll get a `400` error (see [Get Supported Chains](/docs/api/endpoints/get-supported-chains)).
+- The token chain and address, through path parameters. If you provide a non-public chain, you'll get a `400` error (see [Get Supported Chains](/data/api/endpoints/get-supported-chains)).
 - Whether you want to use magic nodes or not, through the `use_magic_nodes` query parameter. If you do, magic nodes will be fetched and considered in the relationships, score, and clusters computation.
 - What data you want to be returned in your response, through the `return_*` query parameters described below. To ensure lightweight responses, only return the data you actually use!
 
