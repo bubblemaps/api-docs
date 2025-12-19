@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "willow",
-  "name": "Bubblemaps API",
+  "name": "Bubblemaps B2B",
   "colors": {
     "primary": "#6d30b9",
     "light": "#9560d5",
@@ -34,7 +34,7 @@
         "icon": "frame"
       },
       {
-        "group": "Data API",
+        "group": "Data API [Beta]",
         "pages": [
           "data/api/introduction",
           "data/api/authentication",
@@ -53,7 +53,7 @@
     "socials": {
       "x": "https://x.com/bubblemaps",
       "telegram": "https://t.me/bubblemaps",
-      "discord": "https://discord.gg/bubblemaps"
+      "discord": "https://discord.gg/Sm6PJxwaqy"
     }
   }
 }

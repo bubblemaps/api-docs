@@ -20,18 +20,27 @@ Note the simple structure of the URL:
 https://iframe.bubblemaps.io/map?chain=[chain_id]&address=[token_address]&partnerId=[partner_id]
 ```
 
-<Note>
-  If you don't have a dedicated partner id yet, you can use `demo` to test
-  things out. More info in the [pricing section](/iframe/pricing).
-</Note>
-
 ## Available Chains
 
 Currently available chains are `solana`, `eth`, `bsc`, `tron`, `base`, `apechain`, `sonic`, and `ton`.
 
+## Partner Id
+
+If you don't have a dedicated partner id yet, you can use `demo` to test things out. More info in
+the [pricing section](/iframe/pricing).
+
+Otherwise, replace `demo` by your actual partner id. It will unlock the integration on your domains.
+
+<Note>
+  Your partner id is **not** a secret, so you can have it showing in clear in
+  your frontend code. It only unlocks the integration on your domains, and can
+  not be used to impersonate you.
+</Note>
+
 ## Styling
 
-Of course, you still have to style your iframe in terms of size and border to place it correctly in your layout. Keep in mind that browsers usually apply a default border on iframes, which you'll have to remove. We also recommend using at least a 600px height.
+Of course, you still have to style your iframe in terms of size and border to place it correctly in your layout.
+Keep in mind that browsers usually apply a default border on iframes, which you'll have to remove. We also recommend using at least a 600px height.
 
 ```css
 iframe {
