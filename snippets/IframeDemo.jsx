@@ -41,6 +41,9 @@ export const IframeDemo = () => {
             { value: "apechain", label: "Apechain" },
             { value: "sonic", label: "Sonic" },
             { value: "ton", label: "TON" },
+            { value: "avalanche", label: "Avalanche" },
+            { value: "polygon", label: "Polygon" },
+            { value: "monad", label: "Monad" },
           ].map((c) => (
             <option key={c.value} value={c.value}>
               {c.label}

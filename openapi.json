@@ -284,13 +284,31 @@
             "type": "string",
             "title": "Name"
           },
-          "is_public": {
-            "type": "boolean",
-            "title": "Is Public"
+          "dexscreener_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dexscreener Id"
+          },
+          "coingecko_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coingecko Id"
           }
         },
         "type": "object",
-        "required": ["id", "name", "is_public"],
+        "required": ["id", "name"],
         "title": "ChainDetails"
       },
       "ChainId": {
@@ -305,7 +323,8 @@
           "ton",
           "polygon",
           "avalanche",
-          "sonic"
+          "sonic",
+          "monad"
         ],
         "title": "ChainId"
       },
@@ -557,7 +576,8 @@
           "TON",
           "POL",
           "AVAX",
-          "S"
+          "S",
+          "MONAD"
         ],
         "title": "NativeTokenId"
       },
