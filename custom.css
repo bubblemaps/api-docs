@@ -1,0 +1,6 @@
+/* Override max-width for wide mode on large screens - only applies to pages with mode: "wide" */
+@media (min-width: 1536px) {
+  [data-page-mode="wide"] #content-area {
+    max-width: 90% !important;
+  }
+}

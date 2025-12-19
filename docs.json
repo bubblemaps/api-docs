@@ -55,5 +55,6 @@
       "telegram": "https://t.me/bubblemaps",
       "discord": "https://discord.gg/Sm6PJxwaqy"
     }
-  }
+  },
+  "css": "/custom.css"
 }
