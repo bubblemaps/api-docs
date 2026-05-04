@@ -30,3 +30,27 @@ Install our Github App to auto propagate changes from your repo to your deployme
 
 - Mintlify dev isn't running - Run `mintlify install` it'll re-install dependencies.
 - Page loads as a 404 - Make sure you are running in a folder with `docs.json`
+
+# Open API schema preparation
+
+Create a new openapi file that filters out unwanted endpoints and schemas:
+
+```
+python prepare-openapi-schema.py openapi.json \
+  --password "SWAGGER_PASSWORD" \
+  --version "0.2.0" \
+  --pattern "/chains" \
+  --pattern "/maps/*" \
+  --pattern "/v0/*"
+```
+
+Possible to pass a local file instead:
+
+```
+python prepare-openapi-schema.py openapi.json \
+  --input-file input.json \
+  --version "0.2.0" \
+  --pattern "/chains" \
+  --pattern "/maps/*" \
+  --pattern "/v0/*"
+```

@@ -1,8 +1,8 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "FastAPI",
-    "version": "0.1.0"
+    "title": "Bubblemaps Data API",
+    "version": "0.2.0"
   },
   "servers": [
     {
@@ -12,8 +12,11 @@
   "paths": {
     "/chains": {
       "get": {
-        "tags": ["Chains"],
+        "tags": [
+          "Chains"
+        ],
         "summary": "Get Supported Chains",
+        "description": "Deprecated: use `GET /v0/chains` instead. This endpoint will be removed in the future.",
         "operationId": "get_supported_chains_chains_get",
         "responses": {
           "200": {
@@ -41,6 +44,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -50,9 +54,13 @@
     },
     "/maps/{chain}/{token_address}": {
       "get": {
-        "tags": ["Maps"],
+        "tags": [
+          "Maps"
+        ],
         "summary": "Get Map Data",
+        "description": "Deprecated: use `GET /v0/tokens/map/{chain}/{token_address}` instead. This endpoint will be removed in the future.",
         "operationId": "get_map_data_maps__chain___token_address__get",
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -150,6 +158,657 @@
           }
         }
       }
+    },
+    "/v0/chains": {
+      "get": {
+        "tags": [
+          "v0"
+        ],
+        "summary": "Get Supported Chains V0",
+        "operationId": "get_supported_chains_v0_v0_chains_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ChainDetails"
+                  },
+                  "type": "array",
+                  "title": "Response Get Supported Chains V0 V0 Chains Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v0/tokens/search": {
+      "get": {
+        "tags": [
+          "v0"
+        ],
+        "summary": "Search Tokens",
+        "operationId": "search_tokens_v0_tokens_search_get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "title": "The query to search for",
+              "examples": [
+                "bubblemaps",
+                "bmt",
+                "FQgtfugBdpFN7PZ6NdPrZpVLDBrPGxXesi4gVu3vErhY"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TokenDetailsV0"
+                  },
+                  "title": "Response Search Tokens V0 Tokens Search Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/tokens/metadata/{chain}/{token_address}": {
+      "get": {
+        "tags": [
+          "v0"
+        ],
+        "summary": "Get Token Metadata",
+        "operationId": "get_token_metadata_v0_tokens_metadata__chain___token_address__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "chain",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ChainIdV0"
+            }
+          },
+          {
+            "name": "token_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token Address"
+            }
+          },
+          {
+            "name": "return_token_stats",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "title": "Include token stats (aggregates) in the response.",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/TokenDetailsV0"
+                    },
+                    {
+                      "$ref": "#/components/schemas/TokenDetailsWithStatsV0"
+                    }
+                  ],
+                  "title": "Response Get Token Metadata V0 Tokens Metadata  Chain   Token Address  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/tokens/metadata": {
+      "post": {
+        "tags": [
+          "v0"
+        ],
+        "summary": "Get Tokens Metadata",
+        "operationId": "get_tokens_metadata_v0_tokens_metadata_post",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "return_token_stats",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "title": "Include token stats (aggregates) in the response.",
+              "default": false
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/TokenKey"
+                },
+                "maxItems": 1000,
+                "examples": [
+                  [
+                    {
+                      "chain": "eth",
+                      "address": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
+                    },
+                    {
+                      "chain": "base",
+                      "address": "0x940181a94a35a4569e4529a3cdfb74e38fd98631"
+                    }
+                  ]
+                ],
+                "title": "Tokens Keys"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "$ref": "#/components/schemas/TokenDetailsV0"
+                      },
+                      {
+                        "$ref": "#/components/schemas/TokenDetailsWithStatsV0"
+                      }
+                    ]
+                  },
+                  "title": "Response Get Tokens Metadata V0 Tokens Metadata Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/tokens/holders/{chain}/{token_address}": {
+      "get": {
+        "tags": [
+          "v0"
+        ],
+        "summary": "Get Token Holders",
+        "operationId": "get_token_holders_v0_tokens_holders__chain___token_address__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "chain",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ChainIdV0"
+            }
+          },
+          {
+            "name": "token_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token Address"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/HoldersLimit",
+              "default": 80
+            }
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "ge": 0,
+              "title": "The unix timestamp in seconds."
+            }
+          },
+          {
+            "name": "refresh",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "title": "If true, bypass cache and force a refresh to latest data.",
+              "default": false
+            }
+          },
+          {
+            "name": "return_metadata",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "title": "If true, include address metadata in the response.",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TokenHolderV0"
+                  },
+                  "title": "Response Get Token Holders V0 Tokens Holders  Chain   Token Address  Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/tokens/map/{chain}/{token_address}": {
+      "get": {
+        "tags": [
+          "v0"
+        ],
+        "summary": "Get Token Map",
+        "operationId": "get_token_map_v0_tokens_map__chain___token_address__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "chain",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ChainIdV0"
+            }
+          },
+          {
+            "name": "token_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token Address"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/HoldersLimit",
+              "default": 80
+            }
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "ge": 0,
+              "title": "Timestamp"
+            }
+          },
+          {
+            "name": "refresh",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "title": "If true, bypass cache and force a refresh to latest data.",
+              "default": false
+            }
+          },
+          {
+            "name": "use_magic_nodes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "title": "If true, use magic nodes in map computation and include them in the response.",
+              "default": true
+            }
+          },
+          {
+            "name": "return_nodes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Return Nodes"
+            }
+          },
+          {
+            "name": "return_relationships",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Return Relationships"
+            }
+          },
+          {
+            "name": "return_clusters",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Return Clusters"
+            }
+          },
+          {
+            "name": "return_decentralization_score",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Return Decentralization Score"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapDataV0"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/addresses/metadata/{address}": {
+      "get": {
+        "tags": [
+          "v0"
+        ],
+        "summary": "Get Address Metadata",
+        "operationId": "get_address_metadata_v0_addresses_metadata__address__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Address"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressMetadataV0"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/addresses/metadata": {
+      "post": {
+        "tags": [
+          "v0"
+        ],
+        "summary": "Get Addresses Metadata Batch",
+        "operationId": "get_addresses_metadata_batch_v0_addresses_metadata_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddressMetadataBatchRequestV0"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/AddressMetadataV0"
+                  },
+                  "type": "array",
+                  "title": "Response Get Addresses Metadata Batch V0 Addresses Metadata Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v0/relationships/subgraph": {
+      "post": {
+        "tags": [
+          "v0"
+        ],
+        "summary": "Get Subgraph Relationships",
+        "operationId": "get_subgraph_relationships_v0_relationships_subgraph_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubgraphRequestV0",
+                "examples": [
+                  {
+                    "addresses": [
+                      "0xb93b36f305464761abdbd01d7731d4ba496fb6fb",
+                      "0x55fc36e37ee5c04df5803a9a48b9134b26dd167c"
+                    ],
+                    "context_token_key": {
+                      "chain": "eth",
+                      "address": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/GroupedTransferV0"
+                  },
+                  "type": "array",
+                  "title": "Response Get Subgraph Relationships V0 Relationships Subgraph Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -246,8 +905,34 @@
           }
         },
         "type": "object",
-        "required": ["address", "address_details", "is_shown_on_map"],
+        "required": [
+          "address",
+          "address_details",
+          "is_shown_on_map"
+        ],
         "title": "AccountAddressWithDetailsWithMapContext"
+      },
+      "AccountAddressWithDetailsWithMapContextV0": {
+        "properties": {
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "address_details": {
+            "$ref": "#/components/schemas/AccountAddressDetails"
+          },
+          "is_shown_on_map": {
+            "type": "boolean",
+            "title": "Is Shown On Map"
+          }
+        },
+        "type": "object",
+        "required": [
+          "address",
+          "address_details",
+          "is_shown_on_map"
+        ],
+        "title": "AccountAddressWithDetailsWithMapContextV0"
       },
       "AccountAddressWithHolderDataWithMapContext": {
         "properties": {
@@ -274,6 +959,67 @@
           "is_shown_on_map"
         ],
         "title": "AccountAddressWithHolderDataWithMapContext"
+      },
+      "AccountAddressWithHolderDataWithMapContextV0": {
+        "properties": {
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "address_details": {
+            "$ref": "#/components/schemas/AccountAddressDetails"
+          },
+          "holder_data": {
+            "$ref": "#/components/schemas/HolderData"
+          },
+          "is_shown_on_map": {
+            "type": "boolean",
+            "title": "Is Shown On Map"
+          }
+        },
+        "type": "object",
+        "required": [
+          "address",
+          "address_details",
+          "holder_data",
+          "is_shown_on_map"
+        ],
+        "title": "AccountAddressWithHolderDataWithMapContextV0"
+      },
+      "AddressMetadataBatchRequestV0": {
+        "properties": {
+          "addresses": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 2500,
+            "minItems": 1,
+            "title": "Addresses"
+          }
+        },
+        "type": "object",
+        "required": [
+          "addresses"
+        ],
+        "title": "AddressMetadataBatchRequestV0"
+      },
+      "AddressMetadataV0": {
+        "properties": {
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "address_details": {
+            "$ref": "#/components/schemas/AccountAddressDetails"
+          }
+        },
+        "type": "object",
+        "required": [
+          "address",
+          "address_details"
+        ],
+        "title": "AddressMetadataV0"
       },
       "ChainDetails": {
         "properties": {
@@ -308,7 +1054,10 @@
           }
         },
         "type": "object",
-        "required": ["id", "name"],
+        "required": [
+          "id",
+          "name"
+        ],
         "title": "ChainDetails"
       },
       "ChainId": {
@@ -324,10 +1073,29 @@
           "polygon",
           "avalanche",
           "sonic",
+          "hyperevm",
           "monad",
-          "aptos"
+          "aptos",
+          "arbitrum"
         ],
         "title": "ChainId"
+      },
+      "ChainIdV0": {
+        "type": "string",
+        "enum": [
+          "eth",
+          "base",
+          "solana",
+          "tron",
+          "bsc",
+          "apechain",
+          "sonic",
+          "ton",
+          "avalanche",
+          "polygon",
+          "monad"
+        ],
+        "title": "ChainIdV0"
       },
       "ClusterData": {
         "properties": {
@@ -352,7 +1120,12 @@
           }
         },
         "type": "object",
-        "required": ["share", "amount", "holder_count", "holders"],
+        "required": [
+          "share",
+          "amount",
+          "holder_count",
+          "holders"
+        ],
         "title": "ClusterData"
       },
       "ContractTokenRef": {
@@ -366,7 +1139,10 @@
           }
         },
         "type": "object",
-        "required": ["chain", "address"],
+        "required": [
+          "chain",
+          "address"
+        ],
         "title": "ContractTokenRef"
       },
       "GroupedTransfer": {
@@ -390,7 +1166,11 @@
           }
         },
         "type": "object",
-        "required": ["from_address", "to_address", "data"],
+        "required": [
+          "from_address",
+          "to_address",
+          "data"
+        ],
         "title": "GroupedTransfer"
       },
       "GroupedTransferData": {
@@ -433,6 +1213,66 @@
         ],
         "title": "GroupedTransferData"
       },
+      "GroupedTransferDataV0": {
+        "properties": {
+          "total_value": {
+            "type": "number",
+            "title": "Total Value"
+          },
+          "total_transfers": {
+            "type": "integer",
+            "title": "Total Transfers"
+          },
+          "first_date": {
+            "type": "integer",
+            "title": "First Date"
+          },
+          "last_date": {
+            "type": "integer",
+            "title": "Last Date"
+          },
+          "token_key": {
+            "$ref": "#/components/schemas/TokenKey"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_value",
+          "total_transfers",
+          "first_date",
+          "last_date",
+          "token_key"
+        ],
+        "title": "GroupedTransferDataV0"
+      },
+      "GroupedTransferV0": {
+        "properties": {
+          "from_address": {
+            "type": "string",
+            "title": "From Address"
+          },
+          "to_address": {
+            "type": "string",
+            "title": "To Address"
+          },
+          "rel_type": {
+            "type": "string",
+            "const": "GROUPED_TRANSFER",
+            "title": "Rel Type",
+            "default": "GROUPED_TRANSFER"
+          },
+          "data": {
+            "$ref": "#/components/schemas/GroupedTransferDataV0"
+          }
+        },
+        "type": "object",
+        "required": [
+          "from_address",
+          "to_address",
+          "data"
+        ],
+        "title": "GroupedTransferV0"
+      },
       "HTTPValidationError": {
         "properties": {
           "detail": {
@@ -462,8 +1302,21 @@
           }
         },
         "type": "object",
-        "required": ["amount", "rank", "share"],
+        "required": [
+          "amount",
+          "rank",
+          "share"
+        ],
         "title": "HolderData"
+      },
+      "HoldersLimit": {
+        "type": "integer",
+        "enum": [
+          80,
+          250,
+          500
+        ],
+        "title": "HoldersLimit"
       },
       "IdentifiedSupply": {
         "properties": {
@@ -544,8 +1397,71 @@
           }
         },
         "type": "object",
-        "required": ["metadata"],
+        "required": [
+          "metadata"
+        ],
         "title": "MapData"
+      },
+      "MapDataV0": {
+        "properties": {
+          "metadata": {
+            "$ref": "#/components/schemas/MapMetadataV0"
+          },
+          "nodes": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NodesDataV0"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "relationships": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/GroupedTransferV0"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Relationships"
+          },
+          "decentralization_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decentralization Score"
+          },
+          "clusters": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ClusterData"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clusters"
+          }
+        },
+        "type": "object",
+        "required": [
+          "metadata"
+        ],
+        "title": "MapDataV0"
       },
       "MapMetadata": {
         "properties": {
@@ -562,8 +1478,40 @@
           }
         },
         "type": "object",
-        "required": ["dt_update", "ts_update", "identified_supply"],
+        "required": [
+          "dt_update",
+          "ts_update",
+          "identified_supply"
+        ],
         "title": "MapMetadata"
+      },
+      "MapMetadataV0": {
+        "properties": {
+          "dt_update": {
+            "type": "string",
+            "title": "Dt Update"
+          },
+          "ts_update": {
+            "type": "integer",
+            "title": "Ts Update"
+          },
+          "identified_supply": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/IdentifiedSupply"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "dt_update",
+          "ts_update"
+        ],
+        "title": "MapMetadataV0"
       },
       "NativeTokenId": {
         "type": "string",
@@ -578,7 +1526,10 @@
           "POL",
           "AVAX",
           "S",
-          "MONAD"
+          "HYPE",
+          "MONAD",
+          "ETH_ARB",
+          "APT"
         ],
         "title": "NativeTokenId"
       },
@@ -589,7 +1540,9 @@
           }
         },
         "type": "object",
-        "required": ["id"],
+        "required": [
+          "id"
+        ],
         "title": "NativeTokenRef"
       },
       "NodesData": {
@@ -617,8 +1570,225 @@
           }
         },
         "type": "object",
-        "required": ["top_holders"],
+        "required": [
+          "top_holders"
+        ],
         "title": "NodesData"
+      },
+      "NodesDataV0": {
+        "properties": {
+          "top_holders": {
+            "items": {
+              "$ref": "#/components/schemas/AccountAddressWithHolderDataWithMapContextV0"
+            },
+            "type": "array",
+            "title": "Top Holders"
+          },
+          "magic_nodes": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/AccountAddressWithDetailsWithMapContextV0"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Magic Nodes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "top_holders"
+        ],
+        "title": "NodesDataV0"
+      },
+      "SubgraphRequestV0": {
+        "properties": {
+          "addresses": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 1000,
+            "minItems": 2,
+            "title": "Addresses"
+          },
+          "context_token_key": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TokenKey"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "addresses"
+        ],
+        "title": "SubgraphRequestV0"
+      },
+      "TokenAggregates": {
+        "properties": {
+          "transfers_count": {
+            "type": "integer",
+            "title": "Transfers Count"
+          },
+          "min_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Min Date"
+          },
+          "max_date": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Date"
+          }
+        },
+        "type": "object",
+        "required": [
+          "transfers_count"
+        ],
+        "title": "TokenAggregates"
+      },
+      "TokenDetailsV0": {
+        "properties": {
+          "token_key": {
+            "$ref": "#/components/schemas/TokenKey"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/TokenMetadata"
+          }
+        },
+        "type": "object",
+        "required": [
+          "token_key",
+          "metadata"
+        ],
+        "title": "TokenDetailsV0"
+      },
+      "TokenDetailsWithStatsV0": {
+        "properties": {
+          "token_key": {
+            "$ref": "#/components/schemas/TokenKey"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/TokenMetadata"
+          },
+          "token_stats": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/TokenAggregates"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "token_key",
+          "metadata"
+        ],
+        "title": "TokenDetailsWithStatsV0"
+      },
+      "TokenHolderV0": {
+        "properties": {
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "address_details": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AccountAddressDetails"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "holder_data": {
+            "$ref": "#/components/schemas/HolderData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "address",
+          "holder_data"
+        ],
+        "title": "TokenHolderV0"
+      },
+      "TokenKey": {
+        "properties": {
+          "chain": {
+            "$ref": "#/components/schemas/ChainIdV0"
+          },
+          "address": {
+            "type": "string",
+            "title": "Address"
+          }
+        },
+        "type": "object",
+        "required": [
+          "chain",
+          "address"
+        ],
+        "title": "TokenKey"
+      },
+      "TokenMetadata": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "symbol": {
+            "type": "string",
+            "title": "Symbol"
+          },
+          "is_indexed": {
+            "type": "boolean",
+            "title": "Is Indexed"
+          },
+          "img_url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Img Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name",
+          "symbol",
+          "is_indexed"
+        ],
+        "title": "TokenMetadata"
       },
       "ValidationError": {
         "properties": {
@@ -646,7 +1816,11 @@
           }
         },
         "type": "object",
-        "required": ["loc", "msg", "type"],
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
         "title": "ValidationError"
       }
     },

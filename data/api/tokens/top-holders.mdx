@@ -1,0 +1,36 @@
+---
+title: "Get Token Top Holders"
+openapi: "GET /v0/tokens/holders/{chain}/{token_address}"
+---
+
+<Info>**Credit cost:** 1 per request.</Info>
+
+Get the top holders of any given token.
+
+<Warning>
+  All tokens are supported by default, including NFT collections, but beware of
+  errors: a `404` will be returned if no holders are found, and a `400` might be
+  returned for some rare unsupported tokens.
+</Warning>
+
+You'll find the parameters and response schemas at the end of this page, but here's some additional context:
+
+### Parameters
+
+- The base response includes the top 80 holders of the token. This is the same as the iFrame integrations. You can change the number of holders with the `limit` parameter.
+- The `return_metadata` query parameter includes the labels and metadata of the holders in the response.
+- Data can be cached for performance, cache TTL depends on token age. Date of update can be found in the `X-Dt-Update` response header. If you need to force a refresh, you can use the `refresh=true` query param.
+- **History mode**: to access the top holders of a token in a specific date in the past, use the `timestamp` parameter (unix timestamp)
+
+| Option                 | Credits |
+| ---------------------- | ------: |
+| Base request           |       1 |
+| `limit=250`            |     +10 |
+| `limit=500`            |     +25 |
+| `return_metadata=true` |     +25 |
+| `refresh=true`         |     +25 |
+| `timestamp=XXX`        |     +50 |
+
+### Response
+
+- All share values are in `[0, 1]` format, meaning `42%` will be returned as `0.42`.

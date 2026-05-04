@@ -38,8 +38,47 @@
         "pages": [
           "data/api/introduction",
           "data/api/authentication",
-          "data/api/endpoints/get-supported-chains",
-          "data/api/endpoints/get-map-data"
+          "data/api/token-model",
+          {
+            "group": "Deprecated",
+            "pages": [
+              "data/api/deprecated/get-supported-chains",
+              "data/api/deprecated/get-map-data"
+            ]
+          },
+          {
+            "group": "Chains",
+            "expanded": true,
+            "pages": [
+              "data/api/chains/supported"
+            ]
+          },
+          {
+            "group": "Tokens",
+            "expanded": true,
+            "pages": [
+              "data/api/tokens/map",
+              "data/api/tokens/top-holders",
+              "data/api/tokens/search",
+              "data/api/tokens/metadata",
+              "data/api/tokens/metadata-batch"
+            ]
+          },
+          {
+            "group": "Addresses",
+            "expanded": true,
+            "pages": [
+              "data/api/addresses/metadata",
+              "data/api/addresses/metadata-batch"
+            ]
+          },
+          {
+            "group": "Relationships",
+            "expanded": true,
+            "pages": [
+              "data/api/relationships/subgraph"
+            ]
+          }
         ],
         "icon": "database"
       }

@@ -1,0 +1,27 @@
+---
+title: "Get Addresses Subgraph"
+openapi: "POST /v0/relationships/subgraph"
+---
+
+<Info>**Credit cost:** 10 per request + 1 per requested address.</Info>
+
+Get all the transfers between a given list of addresses.
+
+By default, only the transfers of [indexed tokens](/data/api/token-model#indexed-tokens) are included. Use the `context_token_key` body parameter to force the inclusion of transfers of a specific token.
+
+<Check>
+  Transfers are grouped based on the `(from_address, to_address, token_ref)`
+  key. Meaning that if `A` sends some `BMT` to `B` multiple times, these
+  transfers will be grouped as a unique `GROUPED_TRANSFER` relationship object.
+</Check>
+
+<Warning>
+  Other types of relationships with different `data` schemas will be supported
+  in the future, make sure this doesn't break your typing.
+</Warning>
+
+<Info>
+  Relationships between two supernodes (addresses with high volume of transfers)
+  are ignored. Rrelationships between a supernode and a non-supernode are
+  included though.
+</Info>

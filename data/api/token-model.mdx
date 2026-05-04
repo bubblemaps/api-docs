@@ -1,0 +1,55 @@
+---
+title: "Token Model"
+description: "How tokens are handled in the Bubblemaps API"
+---
+
+## Token Keys
+
+Whether it is in endpoints inputs (query parameters, json body, etc) or endpoints outputs (response body), tokens are always referenced by their token key.
+
+A token key is the pair of a chain id and a token address:
+
+- You can get the list of the available chains in the schema or dynamically with the [Get Supported Chains](/data/api/chains/supported) endpoint. Additional chains **will** be supported in the future, without notice. Make sure that it won't break your typing.
+- The token address is either the smart contract address of the token, or the constant `"native"` when this is the chain native token, for exemple ETH in the case of the Ethereum blockchain.
+
+<Check>
+  For EVM chains, both checksum and lowercase addresses are accepted as input,
+  althought the API will always return the lowercase address. Solana addresses
+  are case sensitive.
+</Check>
+
+Some examples:
+
+```json
+[
+  # UNI
+  {
+    "chain": "eth",
+    "address": "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984"
+  },
+  # BNB
+  {
+    "chain": "bnb",
+    "address": "native"
+  },
+  # BMT
+  {
+    "chain": "solana",
+    "address": "FQgtfugBdpFN7PZ6NdPrZpVLDBrPGxXesi4gVu3vErhY"
+  }
+]
+```
+
+## Indexed Tokens
+
+As you surely know, the blockchain is flooded with fake tokens. These are real smart contracts deployed on the blockchain, but they are no legit tokens either because they have never been launched or traded, or even because they are malicious contracts used for dust attacks.
+
+That's why we maintain a limited list of 'indexed' tokens. All tokens can be queried in the different endpoints of course, but we only consider the transfers of indexed tokens when computing maps (transfers of non-indexed tokens won't create clusters in maps, that is to avoid false positive clusters).
+
+This is sometimes returned as `is_indexed` in tokens info objects.
+
+<Check>
+  On the map of a given token, transfers of this specific token are always
+  included, even if it is not indexed. (but they won't show up in maps of other
+  tokens)
+</Check>
