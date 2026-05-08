@@ -11,6 +11,7 @@ You can iFrame a bubble map by simply setting the URL of the map in the `src` at
 ```html
 <iframe
   src="https://iframe.bubblemaps.io/map?address=FQgtfugBdpFN7PZ6NdPrZpVLDBrPGxXesi4gVu3vErhY&chain=solana&partnerId=demo"
+  allow="clipboard-write"
 ></iframe>
 ```
 
@@ -19,6 +20,11 @@ Note the simple structure of the URL:
 ```text
 https://iframe.bubblemaps.io/map?chain=[chain_id]&address=[token_address]&partnerId=[partner_id]
 ```
+
+<Check>
+  `allow="clipboard-write"` is needed for the 'copy' buttons to work on the app
+  (for example to copy the address of a holder).
+</Check>
 
 ## Available Chains
 
@@ -62,6 +68,7 @@ Exemple with inline styling:
 ```html
 <iframe
   src="https://iframe.bubblemaps.io/map?address=FQgtfugBdpFN7PZ6NdPrZpVLDBrPGxXesi4gVu3vErhY&chain=solana&partnerId=demo"
+  allow="clipboard-write"
   style="width:100%;height:700px;border:none;"
 ></iframe>
 ```
@@ -69,5 +76,4 @@ Exemple with inline styling:
 <Note>
   **Custom color themes** are also available on-demand, no code change needed
   (the color theme is triggered by the partner id).
-
 </Note>
