@@ -1,0 +1,43 @@
+---
+title: "Changelog"
+description: "History of changes in the API features or schema"
+---
+
+# 2026-04-29
+
+### Deprecated Endpoints
+
+<Warning>
+  The following endpoints are now deprecated. They still work but are scheduled
+  for removal on <b>July 1st 2026</b>. Migrate right now.
+</Warning>
+
+- [`GET /chains`](/deprecated/get-supported-chains)
+
+> Use [`GET /v0/chains`](/chains/supported) instead <i>(one-to-one migration)</i>.
+
+- [`GET /maps/{chain}/{token_address}`](/deprecated/get-map-data)
+
+> Use [`GET /v0/tokens/map/{chain}/{token_address}`](/tokens/map) instead <i>(a few changes in parameters, and additional features)</i>.
+
+<Note>
+In data returned by new endpoints, native tokens like ETH are no longer described with a specific schema `{"id": "ETH"}` but are now returned like other tokens with native as the address value, like this `{"chain": "eth", "address": "native"}`. [Read more](data/api/token-model#token-keys).  
+</Note>
+
+### New Features
+
+<Check>
+  Self-service platform, history mode, and a bunch of helpful endpoints are now
+  available!
+</Check>
+
+- Switched from query-seconds system to deterministic credit system.
+- Launched a self-serve platform [pro.bubblemaps.io](https://pro.bubblemaps.io)
+- Added parameters on the [Get Token Bubble Map](/data/api/tokens/map) endpoint: `timestamp` to access history mode, `refresh` to force a data update, `limit` to analyse the token over a larger amount of top holders.
+- Added [Get Token Top Holders](/data/api/tokens/top-holders) endpoint.
+- Added [Search Token](/data/api/tokens/search) endpoint.
+- Added [Get Token Metadata](/data/api/tokens/metadata) endpoint.
+- Added [Get Batch Tokens Metadata](/data/api/tokens/metadata-batch) endpoint.
+- Added [Get Addresses Subgraph](/data/api/relationships/subgraph) endpoint.
+- Added [Get Address Metadata](/data/api/addresses/metadata) endpoint (only on custom plans).
+- Added [Get Batch Addresses Metadata](/data/api/addresses/metadata-batch) endpoint (only on custom plans).

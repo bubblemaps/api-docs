@@ -39,6 +39,7 @@
           "data/api/introduction",
           "data/api/authentication",
           "data/api/token-model",
+          "data/api/changelog",
           {
             "group": "Deprecated",
             "pages": [
