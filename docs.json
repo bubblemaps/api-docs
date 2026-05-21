@@ -34,7 +34,7 @@
         "icon": "frame"
       },
       {
-        "group": "Data API [Beta]",
+        "group": "Data API",
         "pages": [
           "data/api/introduction",
           "data/api/authentication",
