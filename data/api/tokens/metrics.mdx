@@ -1,0 +1,43 @@
+---
+title: "Get Token Metrics"
+openapi: "GET /v0/tokens/metrics/{chain}/{token_address}"
+---
+
+<Info>**Credit cost:** 25 per request.</Info>
+
+Easy access to token stats and scores.
+
+Magic nodes and time nodes are used to compute adjusted scores. If you need more control over the parameters, use the [Get Token Bubble Map](/data/api/tokens/map) endpoint that includes a similar `metrics` object.
+
+### Response
+
+`supply_stats` describe supply shares percentage in `[0, 1]` format. For exemple, `supply_stats.fresh_wallets = 0.15` means that 15% of the supply is held by fresh wallets.
+
+- `cexs`, `dexs`, `contracts`: exactly what you think it is
+- `fresh_wallets`: threshold is less than 10 days old
+- `top_10_adjusted`: top 10 entites (after clustering) adjusted to ignore CEXs, DEXs, etc
+- `bundles`: top 10 clusters (ignoring CEXs, DEXs, etc)
+
+`scores` are various values pertaining to decentralization. Scales vary
+
+- `bubblemaps_score`: our fine tuned algorithmic score from 0 (less decentralized) to 100 (more decentralized). [Read more](https://bubblemaps.notion.site/Bubblemaps-Decentralization-Score-ba767100c9534945ae390fd2467e4add). Can be `null` on rare occasions when the algorithm is not applicable
+- [`gini_index`](https://en.wikipedia.org/wiki/Gini_coefficient) and [`herfindahl_hirschman_index`](https://en.wikipedia.org/wiki/Herfindahl%E2%80%93Hirschman_index): from 0 (equally distributed) to 1 (inequaly distributed). For their calculation we use clustered entities, normalized to exclude CEXs/DEXs holdings
+- `nakamoto_coefficient`: minimum number of independent entities needed to reach 50% of the supply
+
+<CardGroup cols={3}>
+  <Card
+    title="Magic Nodes"
+    icon="wand-magic-sparkles"
+    href="https://wiki.bubblemaps.io/bubblemaps-v2/magic-nodes"
+  ></Card>
+  <Card
+    title="Time Nodes"
+    icon="clock"
+    href="https://wiki.bubblemaps.io/bubblemaps-v2/time-nodes"
+  ></Card>
+  <Card
+    title="Bubblemaps Score"
+    icon="hundred-points"
+    href="https://bubblemaps.notion.site/Bubblemaps-Decentralization-Factor-ba767100c9534945ae390fd2467e4add"
+  ></Card>
+</CardGroup>

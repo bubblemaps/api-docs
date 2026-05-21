@@ -59,6 +59,7 @@
             "expanded": true,
             "pages": [
               "data/api/tokens/map",
+              "data/api/tokens/metrics",
               "data/api/tokens/top-holders",
               "data/api/tokens/search",
               "data/api/tokens/metadata",

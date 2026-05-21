@@ -293,15 +293,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "anyOf": [
-                    {
-                      "$ref": "#/components/schemas/TokenDetailsV0"
-                    },
-                    {
-                      "$ref": "#/components/schemas/TokenDetailsWithStatsV0"
-                    }
-                  ],
-                  "title": "Response Get Token Metadata V0 Tokens Metadata  Chain   Token Address  Get"
+                  "$ref": "#/components/schemas/TokenDetailsWithStatsV0"
                 }
               }
             }
@@ -378,14 +370,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "anyOf": [
-                      {
-                        "$ref": "#/components/schemas/TokenDetailsV0"
-                      },
-                      {
-                        "$ref": "#/components/schemas/TokenDetailsWithStatsV0"
-                      }
-                    ]
+                    "$ref": "#/components/schemas/TokenDetailsWithStatsV0"
                   },
                   "title": "Response Get Tokens Metadata V0 Tokens Metadata Post"
                 }
@@ -587,6 +572,16 @@
             }
           },
           {
+            "name": "use_time_nodes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "title": "If true, compute time nodes (temporal groupings of transfers through CEX/DEX/whitelisted contracts) and include them in the cluster computation.",
+              "default": true
+            }
+          },
+          {
             "name": "return_nodes",
             "in": "query",
             "required": false,
@@ -615,16 +610,6 @@
               "default": true,
               "title": "Return Clusters"
             }
-          },
-          {
-            "name": "return_decentralization_score",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "default": true,
-              "title": "Return Decentralization Score"
-            }
           }
         ],
         "responses": {
@@ -634,6 +619,61 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/MapDataV0"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v0/tokens/metrics/{chain}/{token_address}": {
+      "get": {
+        "tags": [
+          "v0"
+        ],
+        "summary": "Get Token Metrics",
+        "operationId": "get_token_metrics_v0_tokens_metrics__chain___token_address__get",
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "chain",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ChainIdV0"
+            }
+          },
+          {
+            "name": "token_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token Address"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapMetricsV0"
                 }
               }
             }
@@ -1407,6 +1447,9 @@
           "metadata": {
             "$ref": "#/components/schemas/MapMetadataV0"
           },
+          "metrics": {
+            "$ref": "#/components/schemas/MapMetricsV0"
+          },
           "nodes": {
             "anyOf": [
               {
@@ -1431,17 +1474,6 @@
             ],
             "title": "Relationships"
           },
-          "decentralization_score": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Decentralization Score"
-          },
           "clusters": {
             "anyOf": [
               {
@@ -1459,7 +1491,8 @@
         },
         "type": "object",
         "required": [
-          "metadata"
+          "metadata",
+          "metrics"
         ],
         "title": "MapDataV0"
       },
@@ -1494,16 +1527,6 @@
           "ts_update": {
             "type": "integer",
             "title": "Ts Update"
-          },
-          "identified_supply": {
-            "anyOf": [
-              {
-                "$ref": "#/components/schemas/IdentifiedSupply"
-              },
-              {
-                "type": "null"
-              }
-            ]
           }
         },
         "type": "object",
@@ -1512,6 +1535,50 @@
           "ts_update"
         ],
         "title": "MapMetadataV0"
+      },
+      "MapMetricsV0": {
+        "properties": {
+          "supply_stats": {
+            "$ref": "#/components/schemas/SupplyStatsV0"
+          },
+          "scores": {
+            "$ref": "#/components/schemas/MapScoresV0"
+          }
+        },
+        "type": "object",
+        "required": [
+          "supply_stats",
+          "scores"
+        ],
+        "title": "MapMetricsV0"
+      },
+      "MapScoresV0": {
+        "properties": {
+          "bubblemaps_score": {
+            "type": "number",
+            "title": "Bubblemaps Score"
+          },
+          "gini_index": {
+            "type": "number",
+            "title": "Gini Index"
+          },
+          "herfindahl_hirschman_index": {
+            "type": "number",
+            "title": "Herfindahl Hirschman Index"
+          },
+          "nakamoto_coefficient": {
+            "type": "integer",
+            "title": "Nakamoto Coefficient"
+          }
+        },
+        "type": "object",
+        "required": [
+          "bubblemaps_score",
+          "gini_index",
+          "herfindahl_hirschman_index",
+          "nakamoto_coefficient"
+        ],
+        "title": "MapScoresV0"
       },
       "NativeTokenId": {
         "type": "string",
@@ -1597,6 +1664,20 @@
               }
             ],
             "title": "Magic Nodes"
+          },
+          "time_nodes": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/TimeNodeV0"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Time Nodes"
           }
         },
         "type": "object",
@@ -1632,6 +1713,65 @@
           "addresses"
         ],
         "title": "SubgraphRequestV0"
+      },
+      "SupplyStatsV0": {
+        "properties": {
+          "cexs": {
+            "type": "number",
+            "title": "Cexs"
+          },
+          "dexs": {
+            "type": "number",
+            "title": "Dexs"
+          },
+          "contracts": {
+            "type": "number",
+            "title": "Contracts"
+          },
+          "fresh_wallets": {
+            "type": "number",
+            "title": "Fresh Wallets"
+          },
+          "top_10_adjusted": {
+            "type": "number",
+            "title": "Top 10 Adjusted"
+          },
+          "bundles": {
+            "type": "number",
+            "title": "Bundles"
+          }
+        },
+        "type": "object",
+        "required": [
+          "cexs",
+          "dexs",
+          "contracts",
+          "fresh_wallets",
+          "top_10_adjusted",
+          "bundles"
+        ],
+        "title": "SupplyStatsV0"
+      },
+      "TimeNodeV0": {
+        "properties": {
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "relationships": {
+            "items": {
+              "$ref": "#/components/schemas/GroupedTransferV0"
+            },
+            "type": "array",
+            "title": "Relationships"
+          }
+        },
+        "type": "object",
+        "required": [
+          "address",
+          "relationships"
+        ],
+        "title": "TimeNodeV0"
       },
       "TokenAggregates": {
         "properties": {
@@ -1694,7 +1834,7 @@
           "metadata": {
             "$ref": "#/components/schemas/TokenMetadata"
           },
-          "token_stats": {
+          "stats": {
             "anyOf": [
               {
                 "$ref": "#/components/schemas/TokenAggregates"
