@@ -39,7 +39,14 @@
           "data/api/introduction",
           "data/api/authentication",
           "data/api/token-model",
-          "data/api/changelog",
+          {
+            "group": "Changelog",
+            "pages": [
+              "data/api/changelog/index",
+              "data/api/changelog/2026-05-20",
+              "data/api/changelog/2026-04-29"
+            ]
+          },
           {
             "group": "Deprecated",
             "pages": [

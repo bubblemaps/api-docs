@@ -1,42 +1,6 @@
 ---
-title: "Changelog"
-description: "History of changes in the API features or schema"
+title: "2026-04-29"
 ---
-
-# 2026-05-20
-
-### Deprecated Response Fields
-
-<Warning>
-  The following response fields are deprecated. They are still returned at the
-  time of writing but are no longer documented in the published OpenAPI schema
-  and will be removed on <b>July 1st 2026</b>. Migrate right now.
-</Warning>
-
-On [`GET /v0/tokens/map/{chain}/{token_address}`](/tokens/map):
-
-- `decentralization_score` → use `metrics.scores.bubblemaps_score` instead
-- `metadata.identified_supply` → use `metrics.supply_stats` instead
-- `metadata.identified_supply.share_in_cexs` → use `metrics.supply_stats.cexs` instead
-- `metadata.identified_supply.share_in_dexs` → use `metrics.supply_stats.dexs` instead
-- `metadata.identified_supply.share_in_other_contracts` → use `metrics.supply_stats.contracts` instead <i>(includes all contracts, not only non-CEX/DEX contracts)</i>
-
-On [`GET /v0/tokens/metadata/{chain}/{token_address}`](/tokens/metadata) and [`POST /v0/tokens/metadata`](/tokens/metadata-batch):
-
-- `token_stats` → use `stats` instead <i>(query parameter name is unchanged: `return_token_stats`)</i>
-
-### New Features
-
-<Check>
-  Token metrics are now a first-class object, with a dedicated endpoint and
-  richer supply statistics.
-</Check>
-
-- Map responses now always a `metrics` object including various scores and extended supply statistics
-- Added [Get Token Metrics](/tokens/metrics) endpoint for easy-access token stats and scores
-- Added `use_time_nodes` query parameter on [Get Token Bubble Map](/tokens/map) (default `true`) for temporal groupings of transfers in cluster computation. [Read more](https://wiki.bubblemaps.io/bubblemaps-v2/time-nodes)
-
-# 2026-04-29
 
 ### Deprecated Endpoints
 
