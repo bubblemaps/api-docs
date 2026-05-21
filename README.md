@@ -33,7 +33,7 @@ Install our Github App to auto propagate changes from your repo to your deployme
 
 # Open API schema preparation
 
-Create a new openapi file that filters out unwanted endpoints and schemas:
+Create a new openapi file that filters out unwanted endpoints and schemas. Deprecated **properties** are removed from the published spec (deprecated **endpoints** are kept as-is when included via patterns).
 
 ```
 python prepare-openapi-schema.py openapi.json \
@@ -48,9 +48,15 @@ Possible to pass a local file instead:
 
 ```
 python prepare-openapi-schema.py openapi.json \
-  --input-file input.json \
+  --input-file ~/Downloads/input.json \
   --version "0.2.0" \
   --pattern "/chains" \
   --pattern "/maps/*" \
   --pattern "/v0/*"
 ```
+
+Be careful not to put the input file at the root of the project, it can be detected and used by mintlify instead of `openapi.json`
+
+The script also writes a structured JSON report of removed fields to `openapi-deprecated.json`. Use this to add MDX callouts on endpoint pages. Don't hesitate to use AI to quickstart documentation changes:
+
+> Update the documentation based on the difference between old-openapi.json and openapi.json, and on the deprecated response attributes that are listed in openapi-deprecated.json. Update endpoints, parameters, changelog, etc, following the existing style of the documentation.
