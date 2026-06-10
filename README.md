@@ -38,7 +38,7 @@ Create a new openapi file that filters out unwanted endpoints and schemas. Depre
 ```
 python prepare-openapi-schema.py openapi.json \
   --password "SWAGGER_PASSWORD" \
-  --version "0.2.0" \
+  --version "0.2.1" \
   --pattern "/chains" \
   --pattern "/maps/*" \
   --pattern "/v0/*"
@@ -49,7 +49,7 @@ Possible to pass a local file instead:
 ```
 python prepare-openapi-schema.py openapi.json \
   --input-file ~/Downloads/input.json \
-  --version "0.2.0" \
+  --version "0.2.1" \
   --pattern "/chains" \
   --pattern "/maps/*" \
   --pattern "/v0/*"

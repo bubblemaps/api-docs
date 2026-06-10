@@ -43,6 +43,7 @@
             "group": "Changelog",
             "pages": [
               "data/api/changelog/index",
+              "data/api/changelog/2026-06-10",
               "data/api/changelog/2026-05-22",
               "data/api/changelog/2026-04-29"
             ]

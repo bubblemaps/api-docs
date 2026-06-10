@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Bubblemaps Data API",
-    "version": "0.2.0"
+    "version": "0.2.1"
   },
   "servers": [
     {
@@ -173,7 +173,7 @@
               "application/json": {
                 "schema": {
                   "items": {
-                    "$ref": "#/components/schemas/ChainDetails"
+                    "$ref": "#/components/schemas/ChainDetailsV0"
                   },
                   "type": "array",
                   "title": "Response Get Supported Chains V0 V0 Chains Get"
@@ -1100,6 +1100,45 @@
         ],
         "title": "ChainDetails"
       },
+      "ChainDetailsV0": {
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ChainIdV0"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "dexscreener_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dexscreener Id"
+          },
+          "coingecko_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coingecko Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "ChainDetailsV0"
+      },
       "ChainId": {
         "type": "string",
         "enum": [
@@ -1133,7 +1172,9 @@
           "ton",
           "avalanche",
           "polygon",
-          "monad"
+          "monad",
+          "hyperevm",
+          "arbitrum"
         ],
         "title": "ChainIdV0"
       },

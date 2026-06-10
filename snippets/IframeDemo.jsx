@@ -38,13 +38,14 @@ export const IframeDemo = () => {
             { value: "bsc", label: "BNB Chain" },
             { value: "tron", label: "Tron" },
             { value: "base", label: "Base" },
-            { value: "apechain", label: "Apechain" },
             { value: "sonic", label: "Sonic" },
             { value: "ton", label: "TON" },
             { value: "avalanche", label: "Avalanche" },
             { value: "polygon", label: "Polygon" },
             { value: "monad", label: "Monad" },
             { value: "aptos", label: "Aptos" },
+            { value: "arbitrum", label: "Arbitrum" },
+            { value: "hyperevm", label: "Hyperevm" },
           ].map((c) => (
             <option key={c.value} value={c.value}>
               {c.label}
