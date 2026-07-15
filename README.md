@@ -59,4 +59,4 @@ Be careful not to put the input file at the root of the project, it can be detec
 
 The script also writes a structured JSON report of removed fields to `openapi-deprecated.json`. Use this to add MDX callouts on endpoint pages. Don't hesitate to use AI to quickstart documentation changes:
 
-> Update the documentation based on the difference between old-openapi.json and openapi.json, and on the deprecated response attributes that are listed in openapi-deprecated.json. Update endpoints, parameters, changelog, etc, following the existing style of the documentation.
+> Update the documentation based on the difference between openapi-old.json and openapi.json, and on the deprecated response attributes that are listed in openapi-deprecated.json. Update endpoints, parameters, changelog, etc, following the existing style of the documentation.

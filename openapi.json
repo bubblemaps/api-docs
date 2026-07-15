@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Bubblemaps Data API",
-    "version": "0.2.1"
+    "version": "0.2.2"
   },
   "servers": [
     {
@@ -886,6 +886,11 @@
             "type": "boolean",
             "title": "Is Dex"
           },
+          "is_paid_label": {
+            "type": "boolean",
+            "title": "Is Paid Label",
+            "default": false
+          },
           "entity_id": {
             "anyOf": [
               {
@@ -1155,7 +1160,8 @@
           "hyperevm",
           "monad",
           "aptos",
-          "arbitrum"
+          "arbitrum",
+          "robinhood"
         ],
         "title": "ChainId"
       },
@@ -1167,14 +1173,14 @@
           "solana",
           "tron",
           "bsc",
-          "apechain",
           "sonic",
           "ton",
           "avalanche",
           "polygon",
           "monad",
           "hyperevm",
-          "arbitrum"
+          "arbitrum",
+          "robinhood"
         ],
         "title": "ChainIdV0"
       },
@@ -1637,7 +1643,8 @@
           "HYPE",
           "MONAD",
           "ETH_ARB",
-          "APT"
+          "APT",
+          "ETH_ROBINHOOD"
         ],
         "title": "NativeTokenId"
       },

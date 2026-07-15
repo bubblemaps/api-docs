@@ -44,6 +44,7 @@ You'll find the parameters and response schemas at the end of this page, but her
 - All share values are in `[0, 1]` format, meaning `42%` will be returned as `0.42`.
 - In the nodes lists, you'll find a `is_shown_on_map` boolean. It is based on the default visibility state on our main app, meaning that CEXs, DEXs, Contracts, and hypernodes (more than 200k transfers) are hidden. These nodes are not considered in the relationships, score, and clusters computation.
 - The `is_supernode` boolean means that the node has a high volume of transfers (threshold may vary). Relationships between two supernodes are ignored (relationships between a supernode and a non-supernode are included though).
+- The `is_paid_label` boolean indicates whether the label is a [community-submitted label](https://wiki.bubblemaps.io/bubblemaps-v2/submit-labels).
 - In the `relationships` list, transfers are grouped based on the `(from_address, to_address, token_ref)` key. Meaning that if `A` sends some `BMT` to `B` multiple times, these transfers will be grouped as a unique `GROUPED_TRANSFER` relationship object (other types of relationships with different `data` schemas will be supported in the future, make sure this doesn't break your typing).
 - `metrics` include various scores and stats described in detail in the [metrics endpoint documentation](/data/api/tokens/metrics#response).
 
