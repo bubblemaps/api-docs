@@ -1,0 +1,38 @@
+---
+title: "2026-09-08"
+---
+
+API version `0.3.0`.
+
+### New Features
+
+<Check>Map screenshots and richer cluster payloads.</Check>
+
+- Added [Get Token Screenshot](/data/api/tokens/screenshot) endpoint <i>(beta)</i>
+- Map clusters now include `magic_nodes` and `magic_node_count`
+
+### Removed Endpoints
+
+<Warning>
+  The following endpoints, deprecated since [2026-04-29](/data/api/changelog/2026-04-29),
+  have been removed.
+</Warning>
+
+- [`GET /chains`](/data/api/removed/get-supported-chains) → use [`GET /v0/chains`](/data/api/chains/supported) instead <i>(one-to-one migration)</i>
+- [`GET /maps/{chain}/{token_address}`](/data/api/removed/get-map-data) → use [`GET /v0/tokens/map/{chain}/{token_address}`](/data/api/tokens/map) instead
+
+### Removed Response Fields
+
+<Warning>
+  The following response fields, deprecated since [2026-05-22](/data/api/changelog/2026-05-22),
+  have been removed.
+</Warning>
+
+On [`GET /v0/tokens/map/{chain}/{token_address}`](/data/api/tokens/map):
+
+- `decentralization_score` → use `metrics.scores.bubblemaps_score` instead
+- `metadata.identified_supply` → use `metrics.supply_stats` instead
+
+On [`GET /v0/tokens/metadata/{chain}/{token_address}`](/data/api/tokens/metadata) and [`POST /v0/tokens/metadata`](/data/api/tokens/metadata-batch):
+
+- `token_stats` → use `stats` instead <i>(query parameter name is unchanged: `return_token_stats`)</i>

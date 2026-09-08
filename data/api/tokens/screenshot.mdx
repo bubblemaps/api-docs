@@ -1,0 +1,18 @@
+---
+title: "Get Token Screenshot"
+openapi: "GET /v0/tokens/screenshot/{chain}/{token_address}"
+---
+
+<Info>**Credit cost:** 25 per request.</Info>
+
+<Warning>This endpoint is in **beta**. Deal with caution.</Warning>
+
+Get a screenshot of the bubble map for a given token.
+
+The response is a URL to a rendered image of the map, plus the time it was last updated.
+
+<Note>
+  This is a static image. For the interactive widget, see the [iFrame
+  Integration](/iframe/introduction). For the underlying map data, see [Get
+  Token Bubble Map](/data/api/tokens/map).
+</Note>

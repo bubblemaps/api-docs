@@ -1,0 +1,15 @@
+---
+title: "Get Map Data"
+description: "Removed. Use GET /v0/tokens/map/&#123;chain&#125;/&#123;token_address&#125; instead."
+hidden: true
+---
+
+<Warning>
+  This endpoint has been **removed**. Use
+  [<code>{'GET /v0/tokens/map/{chain}/{token_address}'}</code>](/data/api/tokens/map)
+  instead.
+</Warning>
+
+<code>{'GET /maps/{chain}/{token_address}'}</code> was the legacy map endpoint. It was [deprecated on 2026-04-29](/data/api/changelog/2026-04-29) and removed in API version `0.3.0` ([2026-09-08](/data/api/changelog/2026-09-08)).
+
+The v0 replacement adds history mode, `limit`, `refresh`, time nodes, and a `metrics` object. Native tokens are no longer described with <code>{'{"id": "ETH"}'}</code>; they use a token key like <code>{'{"chain": "eth", "address": "native"}'}</code>. [Read more](/data/api/token-model#token-keys).

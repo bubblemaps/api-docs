@@ -43,17 +43,11 @@
             "group": "Changelog",
             "pages": [
               "data/api/changelog/index",
+              "data/api/changelog/2026-09-08",
               "data/api/changelog/2026-07-13",
               "data/api/changelog/2026-06-10",
               "data/api/changelog/2026-05-22",
               "data/api/changelog/2026-04-29"
-            ]
-          },
-          {
-            "group": "Deprecated",
-            "pages": [
-              "data/api/deprecated/get-supported-chains",
-              "data/api/deprecated/get-map-data"
             ]
           },
           {
@@ -68,6 +62,7 @@
             "expanded": true,
             "pages": [
               "data/api/tokens/map",
+              "data/api/tokens/screenshot",
               "data/api/tokens/metrics",
               "data/api/tokens/top-holders",
               "data/api/tokens/search",
@@ -106,5 +101,23 @@
       "discord": "https://discord.gg/Sm6PJxwaqy"
     }
   },
-  "css": "/custom.css"
+  "css": "/custom.css",
+  "redirects": [
+    {
+      "source": "/deprecated/get-supported-chains",
+      "destination": "/data/api/removed/get-supported-chains"
+    },
+    {
+      "source": "/deprecated/get-map-data",
+      "destination": "/data/api/removed/get-map-data"
+    },
+    {
+      "source": "/data/api/deprecated/get-supported-chains",
+      "destination": "/data/api/removed/get-supported-chains"
+    },
+    {
+      "source": "/data/api/deprecated/get-map-data",
+      "destination": "/data/api/removed/get-map-data"
+    }
+  ]
 }

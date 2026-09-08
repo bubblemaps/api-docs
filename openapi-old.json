@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Bubblemaps Data API",
-    "version": "0.3.0"
+    "version": "0.2.2"
   },
   "servers": [
     {
@@ -10,6 +10,155 @@
     }
   ],
   "paths": {
+    "/chains": {
+      "get": {
+        "tags": [
+          "Chains"
+        ],
+        "summary": "Get Supported Chains",
+        "description": "Deprecated: use `GET /v0/chains` instead. This endpoint will be removed in the future.",
+        "operationId": "get_supported_chains_chains_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ChainDetails"
+                  },
+                  "type": "array",
+                  "title": "Response Get Supported Chains Chains Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/maps/{chain}/{token_address}": {
+      "get": {
+        "tags": [
+          "Maps"
+        ],
+        "summary": "Get Map Data",
+        "description": "Deprecated: use `GET /v0/tokens/map/{chain}/{token_address}` instead. This endpoint will be removed in the future.",
+        "operationId": "get_map_data_maps__chain___token_address__get",
+        "deprecated": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "chain",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ChainId"
+            }
+          },
+          {
+            "name": "token_address",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Token Address"
+            }
+          },
+          {
+            "name": "use_magic_nodes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "title": "If true, use the magic nodes in the computation of the map.",
+              "default": true
+            }
+          },
+          {
+            "name": "return_nodes",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Return Nodes"
+            }
+          },
+          {
+            "name": "return_relationships",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Return Relationships"
+            }
+          },
+          {
+            "name": "return_clusters",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Return Clusters"
+            }
+          },
+          {
+            "name": "return_decentralization_score",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true,
+              "title": "Return Decentralization Score"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MapData"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/v0/chains": {
       "get": {
         "tags": [
@@ -542,61 +691,6 @@
         }
       }
     },
-    "/v0/tokens/screenshot/{chain}/{token_address}": {
-      "get": {
-        "tags": [
-          "v0"
-        ],
-        "summary": "Get Token Screenshot",
-        "operationId": "get_token_screenshot_v0_tokens_screenshot__chain___token_address__get",
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "chain",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/ChainIdV0"
-            }
-          },
-          {
-            "name": "token_address",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Token Address"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ScreenshotV0"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/v0/addresses/metadata/{address}": {
       "get": {
         "tags": [
@@ -841,6 +935,28 @@
         ],
         "title": "AccountAddressDetails"
       },
+      "AccountAddressWithDetailsWithMapContext": {
+        "properties": {
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "address_details": {
+            "$ref": "#/components/schemas/AccountAddressDetails"
+          },
+          "is_shown_on_map": {
+            "type": "boolean",
+            "title": "Is Shown On Map"
+          }
+        },
+        "type": "object",
+        "required": [
+          "address",
+          "address_details",
+          "is_shown_on_map"
+        ],
+        "title": "AccountAddressWithDetailsWithMapContext"
+      },
       "AccountAddressWithDetailsWithMapContextV0": {
         "properties": {
           "address": {
@@ -862,6 +978,32 @@
           "is_shown_on_map"
         ],
         "title": "AccountAddressWithDetailsWithMapContextV0"
+      },
+      "AccountAddressWithHolderDataWithMapContext": {
+        "properties": {
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "address_details": {
+            "$ref": "#/components/schemas/AccountAddressDetails"
+          },
+          "holder_data": {
+            "$ref": "#/components/schemas/HolderData"
+          },
+          "is_shown_on_map": {
+            "type": "boolean",
+            "title": "Is Shown On Map"
+          }
+        },
+        "type": "object",
+        "required": [
+          "address",
+          "address_details",
+          "holder_data",
+          "is_shown_on_map"
+        ],
+        "title": "AccountAddressWithHolderDataWithMapContext"
       },
       "AccountAddressWithHolderDataWithMapContextV0": {
         "properties": {
@@ -924,6 +1066,45 @@
         ],
         "title": "AddressMetadataV0"
       },
+      "ChainDetails": {
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ChainId"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "dexscreener_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dexscreener Id"
+          },
+          "coingecko_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Coingecko Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name"
+        ],
+        "title": "ChainDetails"
+      },
       "ChainDetailsV0": {
         "properties": {
           "id": {
@@ -963,6 +1144,27 @@
         ],
         "title": "ChainDetailsV0"
       },
+      "ChainId": {
+        "type": "string",
+        "enum": [
+          "eth",
+          "base",
+          "solana",
+          "tron",
+          "bsc",
+          "apechain",
+          "ton",
+          "polygon",
+          "avalanche",
+          "sonic",
+          "hyperevm",
+          "monad",
+          "aptos",
+          "arbitrum",
+          "robinhood"
+        ],
+        "title": "ChainId"
+      },
       "ChainIdV0": {
         "type": "string",
         "enum": [
@@ -982,7 +1184,7 @@
         ],
         "title": "ChainIdV0"
       },
-      "ClusterDataV0": {
+      "ClusterData": {
         "properties": {
           "share": {
             "type": "number",
@@ -1002,17 +1204,6 @@
             },
             "type": "array",
             "title": "Holders"
-          },
-          "magic_node_count": {
-            "type": "integer",
-            "title": "Magic Node Count"
-          },
-          "magic_nodes": {
-            "items": {
-              "type": "string"
-            },
-            "type": "array",
-            "title": "Magic Nodes"
           }
         },
         "type": "object",
@@ -1020,11 +1211,94 @@
           "share",
           "amount",
           "holder_count",
-          "holders",
-          "magic_node_count",
-          "magic_nodes"
+          "holders"
         ],
-        "title": "ClusterDataV0"
+        "title": "ClusterData"
+      },
+      "ContractTokenRef": {
+        "properties": {
+          "chain": {
+            "$ref": "#/components/schemas/ChainId"
+          },
+          "address": {
+            "type": "string",
+            "title": "Address"
+          }
+        },
+        "type": "object",
+        "required": [
+          "chain",
+          "address"
+        ],
+        "title": "ContractTokenRef"
+      },
+      "GroupedTransfer": {
+        "properties": {
+          "from_address": {
+            "type": "string",
+            "title": "From Address"
+          },
+          "to_address": {
+            "type": "string",
+            "title": "To Address"
+          },
+          "rel_type": {
+            "type": "string",
+            "const": "GROUPED_TRANSFER",
+            "title": "Rel Type",
+            "default": "GROUPED_TRANSFER"
+          },
+          "data": {
+            "$ref": "#/components/schemas/GroupedTransferData"
+          }
+        },
+        "type": "object",
+        "required": [
+          "from_address",
+          "to_address",
+          "data"
+        ],
+        "title": "GroupedTransfer"
+      },
+      "GroupedTransferData": {
+        "properties": {
+          "total_value": {
+            "type": "number",
+            "title": "Total Value"
+          },
+          "total_transfers": {
+            "type": "integer",
+            "title": "Total Transfers"
+          },
+          "first_date": {
+            "type": "integer",
+            "title": "First Date"
+          },
+          "last_date": {
+            "type": "integer",
+            "title": "Last Date"
+          },
+          "token_ref": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ContractTokenRef"
+              },
+              {
+                "$ref": "#/components/schemas/NativeTokenRef"
+              }
+            ],
+            "title": "Token Ref"
+          }
+        },
+        "type": "object",
+        "required": [
+          "total_value",
+          "total_transfers",
+          "first_date",
+          "last_date",
+          "token_ref"
+        ],
+        "title": "GroupedTransferData"
       },
       "GroupedTransferDataV0": {
         "properties": {
@@ -1131,6 +1405,90 @@
         ],
         "title": "HoldersLimit"
       },
+      "IdentifiedSupply": {
+        "properties": {
+          "share_in_cexs": {
+            "type": "number",
+            "title": "Share In Cexs"
+          },
+          "share_in_dexs": {
+            "type": "number",
+            "title": "Share In Dexs"
+          },
+          "share_in_other_contracts": {
+            "type": "number",
+            "title": "Share In Other Contracts"
+          }
+        },
+        "type": "object",
+        "required": [
+          "share_in_cexs",
+          "share_in_dexs",
+          "share_in_other_contracts"
+        ],
+        "title": "IdentifiedSupply"
+      },
+      "MapData": {
+        "properties": {
+          "metadata": {
+            "$ref": "#/components/schemas/MapMetadata"
+          },
+          "nodes": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NodesData"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "relationships": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/GroupedTransfer"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Relationships"
+          },
+          "decentralization_score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Decentralization Score"
+          },
+          "clusters": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/ClusterData"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Clusters"
+          }
+        },
+        "type": "object",
+        "required": [
+          "metadata"
+        ],
+        "title": "MapData"
+      },
       "MapDataV0": {
         "properties": {
           "metadata": {
@@ -1167,7 +1525,7 @@
             "anyOf": [
               {
                 "items": {
-                  "$ref": "#/components/schemas/ClusterDataV0"
+                  "$ref": "#/components/schemas/ClusterData"
                 },
                 "type": "array"
               },
@@ -1184,6 +1542,28 @@
           "metrics"
         ],
         "title": "MapDataV0"
+      },
+      "MapMetadata": {
+        "properties": {
+          "dt_update": {
+            "type": "string",
+            "title": "Dt Update"
+          },
+          "ts_update": {
+            "type": "integer",
+            "title": "Ts Update"
+          },
+          "identified_supply": {
+            "$ref": "#/components/schemas/IdentifiedSupply"
+          }
+        },
+        "type": "object",
+        "required": [
+          "dt_update",
+          "ts_update",
+          "identified_supply"
+        ],
+        "title": "MapMetadata"
       },
       "MapMetadataV0": {
         "properties": {
@@ -1222,14 +1602,7 @@
       "MapScoresV0": {
         "properties": {
           "bubblemaps_score": {
-            "anyOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "null"
-              }
-            ],
+            "type": "number",
             "title": "Bubblemaps Score"
           },
           "gini_index": {
@@ -1247,11 +1620,75 @@
         },
         "type": "object",
         "required": [
+          "bubblemaps_score",
           "gini_index",
           "herfindahl_hirschman_index",
           "nakamoto_coefficient"
         ],
         "title": "MapScoresV0"
+      },
+      "NativeTokenId": {
+        "type": "string",
+        "enum": [
+          "ETH",
+          "ETH_BASE",
+          "SOL",
+          "TRX",
+          "BNB",
+          "APE",
+          "TON",
+          "POL",
+          "AVAX",
+          "S",
+          "HYPE",
+          "MONAD",
+          "ETH_ARB",
+          "APT",
+          "ETH_ROBINHOOD"
+        ],
+        "title": "NativeTokenId"
+      },
+      "NativeTokenRef": {
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/NativeTokenId"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id"
+        ],
+        "title": "NativeTokenRef"
+      },
+      "NodesData": {
+        "properties": {
+          "top_holders": {
+            "items": {
+              "$ref": "#/components/schemas/AccountAddressWithHolderDataWithMapContext"
+            },
+            "type": "array",
+            "title": "Top Holders"
+          },
+          "magic_nodes": {
+            "anyOf": [
+              {
+                "items": {
+                  "$ref": "#/components/schemas/AccountAddressWithDetailsWithMapContext"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Magic Nodes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "top_holders"
+        ],
+        "title": "NodesData"
       },
       "NodesDataV0": {
         "properties": {
@@ -1296,25 +1733,6 @@
           "top_holders"
         ],
         "title": "NodesDataV0"
-      },
-      "ScreenshotV0": {
-        "properties": {
-          "image_url": {
-            "type": "string",
-            "title": "Image Url"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Updated At"
-          }
-        },
-        "type": "object",
-        "required": [
-          "image_url",
-          "updated_at"
-        ],
-        "title": "ScreenshotV0"
       },
       "SubgraphRequestV0": {
         "properties": {
