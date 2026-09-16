@@ -94,3 +94,9 @@ Tombstone examples: `data/api/removed/get-supported-chains.mdx`, `data/api/remov
 - Credit costs live in MDX (`<Info>**Credit cost:** …</Info>`), not in OpenAPI.
 - Prefer `/data/api/...` links in new content. Do not “fix” historical changelog hrefs; add redirects if those old paths must keep working.
 - iFrame docs (`iframe/`) are a separate product. Only touch them when the change is actually about the iFrame.
+
+## Chain Release
+
+When a chain is added, you also have to update the iframe documentation. There are 2 places you need to update:
+- The list of available chains in the quickstart page
+- The list of chains in the react component for the interactive demo

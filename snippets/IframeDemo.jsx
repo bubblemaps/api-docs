@@ -47,6 +47,7 @@ export const IframeDemo = () => {
             { value: "arbitrum", label: "Arbitrum" },
             { value: "hyperevm", label: "Hyperevm" },
             { value: "robinhood", label: "Robinhood" },
+            { value: "arc", label: "Arc" },
           ].map((c) => (
             <option key={c.value} value={c.value}>
               {c.label}
