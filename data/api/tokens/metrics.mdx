@@ -13,10 +13,10 @@ Magic nodes and time nodes are used to compute adjusted scores. If you need more
 
 `supply_stats` describe supply shares percentage in `[0, 1]` format. For exemple, `supply_stats.fresh_wallets = 0.15` means that 15% of the supply is held by fresh wallets.
 
-- `cexs`, `dexs`, `contracts`: exactly what you think it is
-- `fresh_wallets`: threshold is less than 10 days old
-- `top_10_adjusted`: top 10 entites (after clustering) adjusted to ignore CEXs, DEXs, etc
-- `bundles`: top 10 clusters (ignoring CEXs, DEXs, etc)
+- `cexs`, `dexs`, `contracts`: Total supply held by CEXs, DEXs, contracts, etc...
+- `fresh_wallets`: Total supply held by wallets that are less than 10 days old
+- `top_10_adjusted`: Total supply held by the 10 largest entities, whether they're standalone holders or clusters. Adjusted to ignore CEXs, DEXs, etc
+- `bundles`: Total supply held by the 10 largest clusters. Standalone holders are excluded, even if they're the largest holders
 
 `scores` are various values pertaining to decentralization. Scales vary
 
