@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Bubblemaps Data API",
-    "version": "0.3.1"
+    "version": "0.3.2"
   },
   "servers": [
     {
@@ -1014,6 +1014,17 @@
             },
             "type": "array",
             "title": "Magic Nodes"
+          },
+          "time_node_count": {
+            "type": "integer",
+            "title": "Time Node Count"
+          },
+          "time_nodes": {
+            "items": {
+              "$ref": "#/components/schemas/ClusterTimeNodeV0"
+            },
+            "type": "array",
+            "title": "Time Nodes"
           }
         },
         "type": "object",
@@ -1023,9 +1034,29 @@
           "holder_count",
           "holders",
           "magic_node_count",
-          "magic_nodes"
+          "magic_nodes",
+          "time_node_count",
+          "time_nodes"
         ],
         "title": "ClusterDataV0"
+      },
+      "ClusterTimeNodeV0": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "address": {
+            "type": "string",
+            "title": "Address"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "address"
+        ],
+        "title": "ClusterTimeNodeV0"
       },
       "GroupedTransferDataV0": {
         "properties": {
@@ -1385,6 +1416,10 @@
       },
       "TimeNodeV0": {
         "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
           "address": {
             "type": "string",
             "title": "Address"
@@ -1399,6 +1434,7 @@
         },
         "type": "object",
         "required": [
+          "id",
           "address",
           "relationships"
         ],

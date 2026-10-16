@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Bubblemaps Data API",
-    "version": "0.3.0"
+    "version": "0.3.1"
   },
   "servers": [
     {
@@ -978,7 +978,8 @@
           "monad",
           "hyperevm",
           "arbitrum",
-          "robinhood"
+          "robinhood",
+          "arc"
         ],
         "title": "ChainIdV0"
       },

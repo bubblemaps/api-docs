@@ -1,0 +1,12 @@
+---
+title: "2026-10-16"
+---
+
+API version `0.3.2`.
+
+### New Features
+
+<Check>Map clusters now list the time nodes they contain.</Check>
+
+- Map clusters on [Get Token Bubble Map](/data/api/tokens/map) now include `time_nodes` and `time_node_count`. Each cluster time node has an `id` and an `address`.
+- Time nodes in the map nodes payload now include the same `id`, which enables matching between the two objects.

@@ -4,6 +4,8 @@ Mintlify documentation for Bubblemaps B2B (iFrame + Data API). Site config is `d
 
 When updating Data API docs after a schema change, **read this file first**, then match the tone and structure of existing MDX pages. Changelog layout and wording are defined by the pages under `data/api/changelog/`, not by restating them here.
 
+Always update the versions in the example commands in the README with the latest version.
+
 ## OpenAPI update workflow
 
 1. Diff `openapi-old.json` vs `openapi.json`, and read `openapi-deprecated.json`. Typical checks:
